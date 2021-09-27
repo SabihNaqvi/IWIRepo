@@ -4,27 +4,18 @@ import jwt from 'jsonwebtoken'
 import { url } from '../Api/api'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Main from './Main'
-const Table = () => {
+const AdvisorTable = () => {
 const token = localStorage.getItem("token");
 if(!token) { window.location = 'login'}
 else {const {user} = jwt.verify(token,"randomString")
 if(!user?.id) { window.location = 'login'}}
-const [Data,setData] = useState([]);
-// const [advisorData,setadvisorData] = useState([]);
-const getProducers = async () =>{
-  const response = await fetch(`${url}/producerr`);
-  setData( await response.json() );
-  // const data = await response.json()
-  // console.log(data)
+const [advisorData,setadvisorData] = useState([]);
+const getAdvisors = async () =>{
+  const response = await fetch(`${url}/advisorr`);
+  setadvisorData( await response.json() );
 }
-
-// const getAdvisors = async () =>{
-//   const response = await fetch(`${url}/advisorr`);
-//   setadvisorData( await response.json() );
-// }
 useEffect(() => {
-  getProducers();
-  // getAdvisors();
+  getAdvisors();
 },[])
     return (
         <>
@@ -34,25 +25,25 @@ useEffect(() => {
         <div className="col-sm-12">
           <div className="row">
           <div className="col-2">
-          <h4><Link to ='/' style={{textDecoration: 'none',color: 'green'}}>Home</Link>>Producers</h4>
+          <h4><Link to ='/' style={{textDecoration: 'none',color: 'green'}}>Home</Link>>Advisor</h4>
           </div>
           <div className="col-6">
           <table className="table borderless td">
             <thead>
               <tr>
-                <th scope="col">Producer ID</th>
-                <th scope="col">Producer</th>
-                <th scope="col">Advisor ID</th> 
+                <th scope="col">AdvisorID</th>
+                <th scope="col">Advisor</th>
+                <th scope="col">Producer ID</th> 
               </tr>
             </thead>
             <tbody>
             {
-             Data.map((currentProducer)=>{
+             advisorData.map((currentAdvisor)=>{
                return(
                 <tr>
-                <th scope="row">{currentProducer.id}</th>
-                <td>{currentProducer.FirstName},{currentProducer.Address1},{currentProducer.Country},{currentProducer.State},{currentProducer.City}</td>
-                <td>{currentProducer.AdvisorId}</td>
+                <th scope="row">{currentAdvisor.id}</th>
+                <td>{currentAdvisor.FirstName},{currentAdvisor.Address1},{currentAdvisor.Country},{currentAdvisor.State},{currentAdvisor.City}</td>
+                <td>advisorData</td>
               </tr>
                )
               })
@@ -71,4 +62,4 @@ useEffect(() => {
     )
 }
 
-export default Table
+export default AdvisorTable

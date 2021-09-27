@@ -60,6 +60,13 @@ const advisor = dbData.define("advisors", {
     type: sequelize.BOOLEAN,
     defaultValue: false,
   },
+  // AdvisorId : {
+  //     type: sequelize.INTEGER,
+  //     references: {
+  //         model: producer,
+  //         key: 'id'
+  //     }
+  // }
 });
 advisor.sync().then(() => {
   console.log("Advisor table created");

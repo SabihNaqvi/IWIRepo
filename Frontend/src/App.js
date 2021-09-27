@@ -20,6 +20,7 @@ import Error from './componenets/Error';
 import Home from './componenets/Home';
 import ResetPassword from './componenets/ResetPassword';
 import { url } from './Api/api';
+import AdvisorTable from './componenets/AdvisorTable';
 function App() {
      
   const [state, setstate] = useState()
@@ -50,6 +51,7 @@ useEffect(() => {
         <Route exact path='/signups' component={Signup}></Route>
         <Route exact path='/producerprofile' component={producerProfile}></Route>
         <Route exact path='/advisor' component={AdvisorProfile}></Route>
+        <Route exact path='/advisortable' component={AdvisorTable}></Route>
         <Route exact path='/producers' component={()=><ProducerTable data={state}/>}></Route>
         <Route exact path='/Producerfield' component={ProducerFields}></Route>
         <Route exact path='/fieldrecord' component={FieldRecord}></Route>
