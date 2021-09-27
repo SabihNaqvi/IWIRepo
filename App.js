@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }))
     // parse requests of content-type - application/json
 app.use(bodyParser.json())
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const host = '0.0.0.0';
 
 // app.use('/', Record);

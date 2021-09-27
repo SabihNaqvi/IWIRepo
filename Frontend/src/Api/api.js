@@ -1,2 +1,2 @@
 
-exports.url = 'http://143.244.141.128:3000'
+exports.url = 'http://127.0.0.1:3000'

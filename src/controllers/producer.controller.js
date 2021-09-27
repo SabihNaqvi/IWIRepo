@@ -11,6 +11,17 @@ exports.getAllProducerList = async(req, res) => {
     }
 }
 
+// exports.getAllProducerListbyID = async(req, res) => {
+//     try {
+//         const userExists = await producerModel.findOne({ where: { id } });
+//         const producersData = await producerModel.findAll();
+//         res.status(200).send(producersData)
+//     } catch (error) {
+//         res.status(404).send(error)
+//     }
+// }
+
+
 exports.postAllProducers = async(req, res) => {
     const { FirstName,MiddleInitial,LastName,Address1,Address2, Email, HomePhone, CellPhone, City,State, Country,NDA,Twitter,Facebook } = req.body;
     if (!FirstName || !MiddleInitial || !LastName || !Address1  || !Address2 || !Email || !HomePhone || !CellPhone || !City || !State || !Country || !NDA || !Twitter || !Facebook){

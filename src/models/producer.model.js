@@ -1,5 +1,6 @@
 const dbData = require('../CONFIG/db.config')
-const sequelize = require('sequelize')
+const sequelize = require('sequelize');
+const advisor = require('./advisor.model');
 const producer = dbData.define('producers',{
     id: {
         type: sequelize.INTEGER,
@@ -57,6 +58,15 @@ const producer = dbData.define('producers',{
     Facebook :{
         type : sequelize.BOOLEAN,
         defaultValue:false
+    },
+    AdvisorId : {
+        type: sequelize.INTEGER,
+        // references: 'advisors', // or "conversations"? This is a table name
+        //     referencesKey: 'id'
+        references: {
+            model: advisor,
+            key: 'id'
+        }
     }
 }) 
 producer.sync().then(() => {
