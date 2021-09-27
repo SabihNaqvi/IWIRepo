@@ -1,11 +1,20 @@
-const express = require('express')
-const { postAllAdvisors, getAllAdvisorsList } = require('../controllers/advisor.controller')
+const express = require("express");
+const {
+  postAllAdvisors,
+  getAllAdvisorsList,
+} = require("../controllers/advisor.controller");
 // const { postForget, getForget } = require('../controllers/forget.controller')
 // const { postAllLoginsList, getAllLoginsList} = require('../controllers/login')
-const { postAllProducers, getAllProducerList } = require('../controllers/producer.controller')
-const { getAllSignups, postAllSignups } = require('../controllers/signup.controller')
-const router = express.Router()
-
+const {
+  postAllProducers,
+  getAllProducerList,
+} = require("../controllers/producer.controller");
+const {
+  getAllSignups,
+  postAllSignups,
+} = require("../controllers/signup.controller");
+const { manageZone } = require("../controllers/manageZone.controller");
+const router = express.Router();
 
 // router.get('/signup', getAllSignups)
 
@@ -23,8 +32,9 @@ const router = express.Router()
 
 // router.get('/advisor',getAllAdvisorsList)
 
+//router.post("/managezone", manageZone);
 
 // router.post('/forget-password',postForget)
 
 // router.get('/forget-password',getForget)
-module.exports = router
+module.exports = router;
