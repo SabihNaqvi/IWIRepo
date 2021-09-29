@@ -11,15 +11,6 @@ exports.getAllProducerList = async (req, res) => {
   }
 };
 
-// exports.getAllProducerListbyID = async(req, res) => {
-//     try {
-//         const userExists = await producerModel.findOne({ where: { id } });
-//         const producersData = await producerModel.findAll();
-//         res.status(200).send(producersData)
-//     } catch (error) {
-//         res.status(404).send(error)
-//     }
-// }
 
 exports.postAllProducers = async (req, res) => {
   const {
@@ -49,10 +40,7 @@ exports.postAllProducers = async (req, res) => {
     !CellPhone ||
     !City ||
     !State ||
-    !Country ||
-    !NDA ||
-    !Twitter ||
-    !Facebook
+    !Country
   ) {
     res.status(400).json({ error: "Please Enter Your Credential Properly" });
   }

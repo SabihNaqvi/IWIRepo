@@ -40,9 +40,6 @@ exports.postAllAdvisors = async (req, res) => {
     !Country ||
     !City ||
     !State
-    //!NDA ||
-    //!Twitter ||
-    //!Facebook
   ) {
     res.status(400).json({ error: "Please Enter Your Credential Properly" });
     console.log(error);
@@ -68,7 +65,7 @@ exports.postAllAdvisors = async (req, res) => {
       Twitter,
       Facebook,
     });
-    // console.log(`${useradvisorModel}`)
+
     await useradvisorModel.save();
     res.status(201).json({ message: "Advisor Registered Successfully" });
   } catch (error) {
