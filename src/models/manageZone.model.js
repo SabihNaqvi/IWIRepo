@@ -50,12 +50,12 @@ const manageZone = dbData.define("manageZone", {
   StructuralReason: {
     type: sequelize.STRING,
     allowNull: false,
-  },
+  }
 });
 
 //
 
 manageZone.sync().then(() => {
-  console.log("manageZone table created");
+  console.log("ManageZone table created");
 });
 module.exports = manageZone;

@@ -12,21 +12,19 @@ const {getAllfieldrecordmgmtzoneList,postAllfieldrecordmgmtzone} = require("./sr
 const {reset_password,verifyOtp} = require("./src/controllers/forget.controller");
 // const {resetNewPassword} = require("./src/controllers/resetpassword.controller");
 const {postAllproducerFieldList,getAllproducerFieldList} = require("./src/controllers/producerField.controller");
-const {manageZone,manageZoneFindAll} = require("./src/controllers/manageZone.controller");
+const {manageZone,manageZoneFindAll,manageZoneFindByYear} = require("./src/controllers/manageZone.controller");
 const app = express();
+
+
+
 app.use(cors());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 const host = "0.0.0.0";
 
-// app.use('/', Record);
-
-// if(process.env.NODE_ENV == "production"){
-//     app.use(express.static("FormsFrontend/build"));
-// }
 app.get("/signup", getAllSignups);
 app.post("/signupss", postAllSignups);
 app.get("/advisorr", getAllAdvisorsList);
@@ -43,6 +41,7 @@ app.get("/producerfieldss", getAllproducerFieldList);
 app.post("/producerfields", postAllproducerFieldList);
 app.post("/manageZone", manageZone);
 app.get("/manageZoneFindAll", manageZoneFindAll);
+app.get("/manageZonefindByYear", manageZoneFindByYear);
 
 app.use(express.static(path.join(__dirname, "/Frontend/build")));
 
