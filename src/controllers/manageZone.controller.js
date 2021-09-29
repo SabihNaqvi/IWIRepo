@@ -1,3 +1,4 @@
+const manageZone = require("../models/manageZone.model");
 const ManageZone = require("../models/manageZone.model");
 //const sequelize = require("sequelize");
 
@@ -14,6 +15,7 @@ exports.manageZone = async (req, res) => {
     structuralPractice,
     reasonsForPractice,
   } = req.body;
+  //console.log("helooo");
 
   if (
     !field ||
@@ -21,7 +23,7 @@ exports.manageZone = async (req, res) => {
     !plantedCrop ||
     !tillage1 ||
     !tillage2 ||
-    !coverCrop ||
+    //!coverCrop ||
     !phosphorousFert ||
     !nitrogenFert ||
     !structuralPractice ||
@@ -30,7 +32,9 @@ exports.manageZone = async (req, res) => {
     res.status(400).json({ message: "All fields are required" });
   }
 
-  manageZone = new ManageZone({
+  let yield = parseInt(Math.random() * 100);
+
+  let newManageZone = new ManageZone({
     field,
     productionYear,
     plantedCrop,
@@ -41,9 +45,10 @@ exports.manageZone = async (req, res) => {
     nitrogenFert,
     structuralPractice,
     reasonsForPractice,
+    yield,
   });
 
-  await manageZone.save();
+  await newManageZone.save();
   res.status(400).json({ message: "manageZone data saved" });
 };
 
@@ -55,4 +60,18 @@ exports.manageZoneFindAll = (req, res) => {
     .catch((err) => {
       res.send({ message: err.message });
     });
+};
+
+exports.manageZoneFindByYear = async (req, res) => {
+  const productionYear = req.query.year;
+
+  try {
+    let manageZone = await ManageZone.findAll({
+      where: { productionYear: productionYear },
+    });
+
+    res.status(200).json(manageZone);
+  } catch (error) {
+    res.status(500).json({ message: "error in finding" });
+  }
 };

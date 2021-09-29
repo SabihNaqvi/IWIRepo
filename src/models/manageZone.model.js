@@ -1,5 +1,6 @@
 const dbData = require("../CONFIG/db.config");
 const sequelize = require("sequelize");
+const { NUMBER } = require("sequelize");
 const manageZone = dbData.define("manageZone", {
   field: {
     type: sequelize.STRING,
@@ -24,8 +25,8 @@ const manageZone = dbData.define("manageZone", {
     allowNull: false,
   },
   coverCrop: {
-    type: sequelize.STRING,
-    allowNull: false,
+    type: sequelize.BOOLEAN,
+    defaultValue: false,
   },
   phosphorousFert: {
     type: sequelize.STRING,
@@ -42,6 +43,9 @@ const manageZone = dbData.define("manageZone", {
   reasonsForPractice: {
     type: sequelize.STRING,
     allowNull: false,
+  },
+  yield: {
+    type: sequelize.NUMBER,
   },
 });
 

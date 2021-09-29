@@ -40,6 +40,7 @@ const app = express();
 const {
   manageZone,
   manageZoneFindAll,
+  manageZoneFindByYear,
 } = require("./src/controllers/manageZone.controller");
 
 app.use(cors());
@@ -71,6 +72,7 @@ app.get("/producerfieldss", getAllproducerFieldList);
 app.post("/producerfields", postAllproducerFieldList);
 app.post("/manageZone", manageZone);
 app.get("/manageZoneFindAll", manageZoneFindAll);
+app.get("/manageZonefindByYear", manageZoneFindByYear);
 
 app.use(express.static(path.join(__dirname, "/Frontend/build")));
 
