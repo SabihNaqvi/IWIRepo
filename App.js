@@ -4,50 +4,22 @@ require("./src/CONFIG/db.config");
 require("./src/routes/router");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const {
-  getAllSignups,
-  postAllSignups,
-} = require("./src/controllers/signup.controller");
-const {
-  getAllAdvisorsList,
-  postAllAdvisors,
-} = require("./src/controllers/advisor.controller");
-const {
-  getAllProducerList,
-  postAllProducers,
-} = require("./src/controllers/producer.controller");
-const {
-  postAllLoginsList,
-  getAllLoginsList,
-} = require("./src/controllers/login");
-const {
-  getAllfieldrecordmgmtzoneList,
-  postAllfieldrecordmgmtzone,
-} = require("./src/controllers/fieldrecordmgmtzone.controller");
-const {
-  reset_password,
-  verifyOtp,
-} = require("./src/controllers/forget.controller");
-const {
-  resetNewPassword,
-} = require("./src/controllers/resetpassword.controller");
-const {
-  postAllproducerFieldList,
-  getAllproducerFieldList,
-} = require("./src/controllers/producerField.controller");
+const {getAllSignups,postAllSignups} = require("./src/controllers/signup.controller");
+const {getAllAdvisorsList,postAllAdvisors} = require("./src/controllers/advisor.controller");
+const {getAllProducerList,postAllProducers} = require("./src/controllers/producer.controller");
+const {postAllLoginsList,getAllLoginsList} = require("./src/controllers/login");
+const {getAllfieldrecordmgmtzoneList,postAllfieldrecordmgmtzone} = require("./src/controllers/fieldrecordmgmtzone.controller");
+const {reset_password,verifyOtp} = require("./src/controllers/forget.controller");
+// const {resetNewPassword} = require("./src/controllers/resetpassword.controller");
+const {postAllproducerFieldList,getAllproducerFieldList} = require("./src/controllers/producerField.controller");
+const {manageZone,manageZoneFindAll} = require("./src/controllers/manageZone.controller");
 const app = express();
-
-const {
-  manageZone,
-  manageZoneFindAll,
-} = require("./src/controllers/manageZone.controller");
-
 app.use(cors());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const host = "0.0.0.0";
 
 // app.use('/', Record);

@@ -1,34 +1,20 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import { url } from '../Api/api';
 import Main from './Main';
 // import Mangement from './Mangement'
 const FieldRecordMgmtZone = () => {
-    const [FieldRecordMgmtZone,setFieldRecordMgmtZone] = useState({Yield:"",Crop:"",secondyrRotation:"",thirdyrRotation:"",PrimaryTillage:"",SecondaryTillage:"",CCSeason:"", CCtype:""})
-    const[CoverCrop,setCoverCrop] = useState(false)
-    let name,value;
-    const handleInput = (event)=>{
-      name = event.target.name
-      value = event.target.value
-      setFieldRecordMgmtZone({...FieldRecordMgmtZone,[name]:value})
-    }
-    async function submitReview(e) {
-        e.preventDefault()
-        await axios.post(`${url}/fieldrecordmgmtzones`,{Yield:FieldRecordMgmtZone.Yield,Crop:FieldRecordMgmtZone.Crop,secondyrRotation:FieldRecordMgmtZone.secondyrRotation,thirdyrRotation:FieldRecordMgmtZone.thirdyrRotation,PrimaryTillage:FieldRecordMgmtZone.PrimaryTillage,SecondaryTillage:FieldRecordMgmtZone.SecondaryTillage,
-        CoverCrop:CoverCrop,CCSeason:FieldRecordMgmtZone.CCSeason, CCtype:FieldRecordMgmtZone.CCtype
-      }).then((response) => {
-        if(response.status === 200){
-            alert("Record Save Successfully!!")
-            window.location = '/mangement'
-        }
-     }).catch((err)=>{
-        if(err.response.status === 400 ) {
-         alert("Please Enter Your Credential Properly")
-        }
-      })
-    }
+const [FieldRecordMgmtZone,setFieldRecordMgmtZone] = useState([]);
+const getFieldRecordMgmtZone = async () =>{
+  const response = await fetch(`${url}/manageZoneFindAll`);
+//   const data = await response.json()
+//   console.log(data)
+  setFieldRecordMgmtZone( await response.json() );
+}
+useEffect(() => {
+  getFieldRecordMgmtZone();
+},[])
     const token = localStorage.getItem("token");
     if(!token || token === 'undefined') {window.location = '/login'}
     else {const {user} = jwt.verify(token,"randomString")
@@ -81,20 +67,25 @@ const FieldRecordMgmtZone = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {
+                                        FieldRecordMgmtZone.map((currentZone)=>{
+                                            return(
                                     <tr>
-                                      <th scope="row">1</th>
-                                      <th></th>
-                                       <th> <input type="name" value={FieldRecordMgmtZone.name} name="Yield"  onChange={handleInput} size="5"/></th>
-                                        <th><input type="name" value={FieldRecordMgmtZone.name} name="Crop"  onChange={handleInput} size="5"/></th>
-                                        <th><input type="name" value={FieldRecordMgmtZone.name} name="secondyrRotation"  onChange={handleInput} size="5"/></th>
-                                        <th><input type="name" value={FieldRecordMgmtZone.name} name="thirdyrRotation"  onChange={handleInput} size="5"/></th>
-                                        <th><input type="name" value={FieldRecordMgmtZone.name} name="PrimaryTillage"  onChange={handleInput} size="5"/></th>
-                                        <th><input type="name" value={FieldRecordMgmtZone.name} name="SecondaryTillage"  onChange={handleInput} size="5"/></th>
-                                        <th><input type="checkbox" value={CoverCrop} name="CoverCrop"  onChange={(e)=>{setCoverCrop(e.target.checked)}} size="5"/></th>
-                                        <th><input type="name" value={FieldRecordMgmtZone.name} name="CCSeason"  onChange={handleInput} size="5"/></th>
-                                        <th><input type="name" value={FieldRecordMgmtZone.name} name="CCtype"  onChange={handleInput} size="5"/></th>
-                                        {/* <th><input size="5"/></th> */}
+                                      <th scope="row">{currentZone.id}</th>
+                                      <th>{currentZone.productionYear}</th>
+                                        <th><input type="checkbox" disabled={true} checked={currentZone.StructuralPractice}/></th>
+                                        <th>{currentZone.plantedCrop}</th>
+                                        <th>currentZone</th>
+                                        <th>currentZone</th>
+                                        <th>{currentZone.Tillage1}</th>
+                                        <th>{currentZone.Tillage2}</th>
+                                        <th><input type="checkbox" disabled={true} checked={currentZone.CoverCrop}/></th>
+                                        <th>{currentZone.Season}</th>
+                                        <th>{currentZone.Grasses}</th>
                                     </tr>
+                                    )
+                                })
+                              }
                                 </tbody>
                             </table>
                         </div>
@@ -102,7 +93,9 @@ const FieldRecordMgmtZone = () => {
                     <div className="row">
                         <div className="col-2">
                             {/* {{if (click = true)} */}
-                            <button className="btn btn-primary" onClick = {submitReview}>Add Mangement Zone</button>
+                            <button className="btn btn-primary" 
+                            // onClick = {submitReview}
+                            >Add Mangement Zone</button>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 const dbData = require("../CONFIG/db.config");
 const sequelize = require("sequelize");
 const manageZone = dbData.define("manageZone", {
-  field: {
+  Fieldpicker: {
     type: sequelize.STRING,
     allowNull: false,
   },
@@ -12,34 +12,42 @@ const manageZone = dbData.define("manageZone", {
   },
 
   productionYear: {
+    type: sequelize.INTEGER,
+    allowNull: false
+  },
+  Tillage1: {
+    type: sequelize.STRING,
+    allowNull: false
+  },
+  Tillage2: {
+    type: sequelize.STRING,
+    allowNull: false
+  },
+  Season: {
+      type: sequelize.STRING,
+      allowNull: false
+    },
+    Grasses:{
+      type: sequelize.STRING,
+      allowNull: false
+    },
+  CoverCrop: {
+    type : sequelize.BOOLEAN,
+    defaultValue:false
+  },
+  PhosphorousFert: {
     type: sequelize.STRING,
     allowNull: false,
   },
-  tillage1: {
+  NitrogenFert: {
     type: sequelize.STRING,
     allowNull: false,
   },
-  tillage2: {
-    type: sequelize.STRING,
-    allowNull: false,
+  StructuralPractice: {
+    type : sequelize.BOOLEAN,
+    defaultValue:false
   },
-  coverCrop: {
-    type: sequelize.STRING,
-    allowNull: false,
-  },
-  phosphorousFert: {
-    type: sequelize.STRING,
-    allowNull: false,
-  },
-  nitrogenFert: {
-    type: sequelize.STRING,
-    allowNull: false,
-  },
-  structuralPractice: {
-    type: sequelize.STRING,
-    allowNull: false,
-  },
-  reasonsForPractice: {
+  StructuralReason: {
     type: sequelize.STRING,
     allowNull: false,
   },

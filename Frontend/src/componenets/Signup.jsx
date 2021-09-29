@@ -76,7 +76,7 @@ if(!user?.id) { window.location = '/'}}
                 <label classname="form-check-label">
                   <input type="checkbox" value={Signups} name="Signups"  onChange={(e)=>{setSignups(e.target.checked)}} size="5"/> I accept the <Link to="/" style={{textDecoration: 'none',color: 'RED',fontSize: '1em'}}>Terms of Use</Link> &amp; <Link to="/" style={{textDecoration: 'none',color: 'RED'}}>Privacy Policy</Link></label>
               </div>
-              <button className="btn btn-outline-success btn-lg px-5"disabled={!Signups} type="submit" onClick={submitReview}>Sign UP</button>
+              <button className="btn btn-outline-success btn-lg px-5" disabled={!Signups} type="submit" onClick={submitReview}>Sign UP</button>
               <br/>
               <p className="mb-0">Already have an account? <Link to = '/login' className="text-white-50 fw-bold"> SignIN</Link></p>
             </div>

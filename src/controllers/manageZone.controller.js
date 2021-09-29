@@ -2,57 +2,24 @@ const ManageZone = require("../models/manageZone.model");
 //const sequelize = require("sequelize");
 
 exports.manageZone = async (req, res) => {
-  const {
-    field,
-    plantedCrop,
-    productionYear,
-    tillage1,
-    tillage2,
-    coverCrop,
-    phosphorousFert,
-    nitrogenFert,
-    structuralPractice,
-    reasonsForPractice,
+  const {Fieldpicker,productionYear,plantedCrop,Tillage1,Tillage2,Season,Grasses,PhosphorousFert,NitrogenFert,StructuralReason,CoverCrop,StructuralPractice
   } = req.body;
 
-  if (
-    !field ||
-    !productionYear ||
-    !plantedCrop ||
-    !tillage1 ||
-    !tillage2 ||
-    !coverCrop ||
-    !phosphorousFert ||
-    !nitrogenFert ||
-    !structuralPractice ||
-    !reasonsForPractice
-  ) {
+  if (!Fieldpicker ||!productionYear || !plantedCrop || !Tillage1 || !Tillage2 || !Season || !Grasses || !PhosphorousFert || !NitrogenFert || !StructuralReason) {
     res.status(400).json({ message: "All fields are required" });
   }
 
-  manageZone = new ManageZone({
-    field,
-    productionYear,
-    plantedCrop,
-    tillage1,
-    tillage2,
-    coverCrop,
-    phosphorousFert,
-    nitrogenFert,
-    structuralPractice,
-    reasonsForPractice,
-  });
+  manageZone = new ManageZone({Fieldpicker,productionYear,plantedCrop,Tillage1,Tillage2,Season,Grasses,PhosphorousFert,NitrogenFert,StructuralReason,CoverCrop,StructuralPractice});
 
   await manageZone.save();
   res.status(400).json({ message: "manageZone data saved" });
 };
 
-exports.manageZoneFindAll = (req, res) => {
-  ManageZone.findAll()
-    .then((manageZone) => {
-      res.send(manageZone);
-    })
-    .catch((err) => {
-      res.send({ message: err.message });
-    });
+exports.manageZoneFindAll = async (req, res) => {
+  try {
+    const ManagezoneData = await ManageZone.findAll();
+    res.status(200).send(ManagezoneData)
+  } catch (error) {
+    res.status(404).send(error)
+  }
 };

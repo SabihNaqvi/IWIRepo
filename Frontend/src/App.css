@@ -248,3 +248,17 @@
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
   }
+
+  .cal{
+    margin-left: 10%;
+    margin-right: 10%; 
+    border-radius: 1px solid black;
+}
+.bor{
+    border: 1px solid black;
+   
+    height: 100%  !important;
+}
+.bol{
+ font-weight: bold;
+}

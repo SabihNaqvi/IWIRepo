@@ -10,21 +10,12 @@ if(!token) { window.location = 'login'}
 else {const {user} = jwt.verify(token,"randomString")
 if(!user?.id) { window.location = 'login'}}
 const [Data,setData] = useState([]);
-// const [advisorData,setadvisorData] = useState([]);
 const getProducers = async () =>{
   const response = await fetch(`${url}/producerr`);
   setData( await response.json() );
-  // const data = await response.json()
-  // console.log(data)
 }
-
-// const getAdvisors = async () =>{
-//   const response = await fetch(`${url}/advisorr`);
-//   setadvisorData( await response.json() );
-// }
 useEffect(() => {
   getProducers();
-  // getAdvisors();
 },[])
     return (
         <>
