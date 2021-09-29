@@ -39,10 +39,10 @@ exports.postAllAdvisors = async (req, res) => {
     !CellPhone ||
     !Country ||
     !City ||
-    !State ||
-    !NDA ||
-    !Twitter ||
-    !Facebook
+    !State
+    //!NDA ||
+    //!Twitter ||
+    //!Facebook
   ) {
     res.status(400).json({ error: "Please Enter Your Credential Properly" });
     console.log(error);
