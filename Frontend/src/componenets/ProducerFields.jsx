@@ -1,38 +1,18 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import { url } from '../Api/api'
 import jwt from 'jsonwebtoken'
 import Main from './Main'
 
 const ProducerFields = () => {
-  const[FieldName,setFieldName] = useState("")
-  const[Size,setSize] = useState()
-  const[CultivatedArea,setCultivatedArea] = useState()
-  const[SoilTestResult,setSoilTestResult] = useState(false)
-  const[SubSurfaceTileDrained,setSubSurfaceTileDrained] = useState(false)
-  const[SurfaceTileDrained,setSurfaceTileDrained] = useState(false)
-  const[FarmingDirection,setFarmingDirection] = useState("")
-  const[YearFarmed,setYearFarmed] = useState()
-  const[ExistConePractice,setExistConePractice] = useState(false)
-  const [EQIPorCPS,setEQIPorCPS] = useState(false)
-    async function submitReview(e) {
-      e.preventDefault()
-        await axios.post(`${url}/producerfields`,{FieldName:FieldName,Size:Size,CultivatedArea:CultivatedArea,SoilTestResult:SoilTestResult,SubSurfaceTileDrained:SubSurfaceTileDrained,SurfaceTileDrained:SurfaceTileDrained,FarmingDirection:FarmingDirection, YearFarmed:YearFarmed, ExistConePractice:ExistConePractice,EQIPorCPS:EQIPorCPS
-      }).then((response) => {
-        if(response.status === 200){
-          alert("Record Registered Successfully!!")
-          window.location = '/fieldrecord'
-        }
-     }).catch((err)=>{
-      if(err.response.status === 422 ){
-       alert("Email Already Exist")
-      }
-      else if(err.response.status === 400 ) {
-       alert("Please Enter Your Credential Properly")
-      }
-    })
-    }
+  const [FieldRecordMgmtZone,setFieldRecordMgmtZone] = useState([]);
+const getFieldRecordMgmtZone = async () =>{
+  const response = await fetch(`${url}/manageZoneFindAll`);
+  setFieldRecordMgmtZone( await response.json() );
+}
+useEffect(() => {
+  getFieldRecordMgmtZone();
+},[])
     const token = localStorage.getItem("token");
     if(!token || token === 'undefined') {window.location = '/login'}
     else {const {user} = jwt.verify(token,"randomString")
@@ -64,22 +44,37 @@ const ProducerFields = () => {
       <th scope="col">Years Farmed</th>
       <th scope="col">Exist Con Practice</th>
       <th scope="col">EQIP or CPS? </th>
+      <th scope="col">OperationalChallenged</th>
+      <th scope="col">SketchMap</th>
+      <th scope="col">ZoneMap</th>
+      <th scope="col">YeildMap</th>
     </tr>
   </thead>
   <tbody>
+  {
+        FieldRecordMgmtZone.map((currentZone)=>{
+           return(
     <tr>
-      <td className="table-info"><Link to ='/fieldrecord' style={{textDecoration: 'none',color: 'green'}}>1</Link></td>
-      <td className="table-info"><input type="name" value={FieldName} name="FieldName"  onChange={(e)=>{setFieldName(e.target.value)}} size="5"/></td>
-      <td className="table-info"><input type="name" value={Size} name="Size"  onChange={(e)=>{setSize(e.target.value)}} size="5"/></td>
-      <td className="table-info"><input type="name" value={CultivatedArea} name="CultivatedArea"  onChange={(e)=>{setCultivatedArea(e.target.value)}} size="5"/></td>
-      <td className="table-info"><input type="checkbox" value={SoilTestResult} name="SoilTestResult"  onChange={(e)=>{setSoilTestResult(e.target.checked)}} size="5"/></td>
-      <td className="table-info"><input type="checkbox" value={SubSurfaceTileDrained} name="SubSurfaceTileDrained"  onChange={(e)=>{setSubSurfaceTileDrained(e.target.checked)}} size="5"/></td>
-      <td className="table-info"><input type="checkbox" value={SurfaceTileDrained} name="SurfaceTileDrained"  onChange={(e)=>{setSurfaceTileDrained(e.target.checked)}} size="5"/></td>
-      <td className="table-info"><input type="name" value={FarmingDirection} name="FarmingDirection"  onChange={(e)=>{setFarmingDirection(e.target.value)}} size="5"/></td>
-      <td className="table-info"><input type="name" value={YearFarmed} name="YearFarmed"  onChange={(e)=>{setYearFarmed(e.target.value)}} size="5"/></td>
-      <td className="table-info"><input type="checkbox" value={ExistConePractice} name="ExistConePractice"  onChange={(e)=>{setExistConePractice(e.target.checked)}} size="5"/></td>
-      <td className="table-info"><input type="checkbox" value={EQIPorCPS} name="EQIPorCPS"  onChange={(e)=>{setEQIPorCPS(e.target.checked)}} size="5"/></td>
+      <td className="table-info">{currentZone.id}</td>
+      <td className="table-info"> {currentZone.plantedCrop}</td>
+      <td className="table-info"> </td>
+      <td className="table-info"></td>
+      <td className="table-info"><input type="checkbox" disabled={true}/></td>
+      <td className="table-info"><input type="checkbox" disabled={true}/></td>
+      <td className="table-info"><input type="checkbox" disabled={true}/></td>
+      <td className="table-info"></td>
+      <td className="table-info">{currentZone.productionYear}</td>
+      <td className="table-info"><input type="checkbox" disabled={true}/></td>
+      <td className="table-info"><input type="checkbox" disabled={true}/></td>
+      <td className="table-info"><input type="checkbox" disabled={true}/></td>
+      <td className="table-info"><input type="checkbox" disabled={true}/></td>
+      <td className="table-info"><input type="checkbox" disabled={true}/></td>
+      <td className="table-info"><input type="checkbox" disabled={true}/></td>
     </tr>
+    
+    )
+  })
+}
     
   </tbody>
 </table>
@@ -90,8 +85,7 @@ const ProducerFields = () => {
                 </div>
                 <div className="row">
                         <div className="col-2">
-                            {/* {{if (click = true)} */}
-                            <button className="btn btn-primary" onClick = {submitReview}>Add Field</button>
+                            <button className="btn btn-primary">Add Field</button>
                         </div>
                     </div>
             </div>

@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const {getAllSignups,postAllSignups} = require("./src/controllers/signup.controller");
 const {getAllAdvisorsList,postAllAdvisors} = require("./src/controllers/advisor.controller");
-const {getAllProducerList,postAllProducers} = require("./src/controllers/producer.controller");
+const {getAllProducerList,postAllProducers, findProducerById} = require("./src/controllers/producer.controller");
 const {postAllLoginsList,getAllLoginsList} = require("./src/controllers/login");
 const {getAllfieldrecordmgmtzoneList,postAllfieldrecordmgmtzone} = require("./src/controllers/fieldrecordmgmtzone.controller");
 const {reset_password,verifyOtp} = require("./src/controllers/forget.controller");
@@ -31,6 +31,7 @@ app.get("/advisorr", getAllAdvisorsList);
 app.post("/advisors", postAllAdvisors);
 app.get("/producerr", getAllProducerList);
 app.post("/producers", postAllProducers);
+app.get("/producerById",findProducerById)
 app.get("/loginn", getAllLoginsList);
 app.post("/logins", postAllLoginsList);
 app.get("/fieldrecordmgmtzoness", getAllfieldrecordmgmtzoneList);

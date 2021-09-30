@@ -14,20 +14,7 @@ exports.getAllProducerList = async (req, res) => {
 
 exports.postAllProducers = async (req, res) => {
   const {
-    FirstName,
-    MiddleInitial,
-    LastName,
-    Address1,
-    Address2,
-    Email,
-    HomePhone,
-    CellPhone,
-    City,
-    State,
-    Country,
-    NDA,
-    Twitter,
-    Facebook,
+    FirstName,MiddleInitial,LastName,Address1,Address2,Email,HomePhone,CellPhone,City,State,Country,NDA,Twitter,Facebook
   } = req.body;
   if (
     !FirstName ||
@@ -65,10 +52,21 @@ exports.postAllProducers = async (req, res) => {
       Twitter,
       Facebook,
     });
-    // console.log(`${userproducerModel}`)
     await userproducerModel.save();
     res.status(201).json({ message: "User Registered Successfully" });
   } catch (error) {
     res.send(error);
+  }
+};
+
+exports.findProducerById = async (req, res) => {
+  const id = req.query.id;
+  try {
+    const findProducer = await producerModel.findOne({
+      where: { id: id },
+    });
+    res.status(200).json(findProducer);
+  } catch (error) {
+    res.status(500).json({ message: "error in finding" });
   }
 };

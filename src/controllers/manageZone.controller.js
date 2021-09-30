@@ -24,15 +24,43 @@ exports.manageZoneFindAll = async (req, res) => {
 };
 
 exports.manageZoneFindByYear = async (req, res) => {
-  const productionYear = req.query.year;
-
   try {
-    const  manageZone = await ManageZone.findAll({
-      where: { productionYear }
+  const productionYear = req.query.productionYear;
+console.log(productionYear,"deeeeeeeee")
+    const newManageZone = await ManageZone.findAll({
+      where: { productionYear: productionYear }
     });
 
-    res.status(200).json(manageZone);
+    res.status(200).json(newManageZone);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: "error in finding" });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+// exports.manageZoneFindByYear = async (req, res) => {
+//   const productionYear = req.query.year;
+//   console.log(productionYear, "hello");
+//   try {
+//     const findByYear = await ManageZone.findAll({
+//       where: { productionYear: productionYear },
+//     });
+
+//     res.status(200).json(findByYear);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: "error in finding" });
+//   }
+// };

@@ -1,8 +1,26 @@
-import React from 'react';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import React,{useState,useEffect} from 'react';
 import jwt from 'jsonwebtoken';
 import Main from './Main';
+import { Link } from 'react-router-dom';
+import { url } from '../Api/api';
 const NewManagmentZone = () => {
+    const [FieldRecordMgmtZone,setFieldRecordMgmtZone] = useState([]);
+    const getFieldRecordMgmtZone = async () =>{
+      const response = await fetch(`${url}/manageZoneFindAll`);
+      setFieldRecordMgmtZone( await response.json() );
+    }
+    const getFieldRecordMgmtZoneByYear = async (year) =>{
+        const response = await fetch(`${url}/manageZonefindByYear?productionYear=${year}`);
+        setFieldRecordMgmtZone( await response.json() );
+      }
+    
+      const changeYear = (e) =>{
+        const year = e.target.value;
+          getFieldRecordMgmtZoneByYear(year)
+      }
+    useEffect(() => {
+      getFieldRecordMgmtZone();
+    },[])
     const token = localStorage.getItem("token");
   if(!token || token === 'undefined') {window.location = '/login'}
   else {const {user} = jwt.verify(token,"randomString")
@@ -10,108 +28,81 @@ const NewManagmentZone = () => {
     return (
         <>
         <Main/>
-            <div className="container-fluid gradient-custom vh-100" style={{border: "2px solid black"}}>
-                <div className="row">
-                    <div className="col-sm-12">
-                        <div className="row pt-5">
-                            <div className="col-2"></div>
-                            <div className="col-5">
-                            <label>Production Year</label>
-                            </div>
+        <div className="container-fluid gradient-custom vh-100">
+            <div className="row">
+                <div className="col-sm-12">
+                <div className="row p-3">
+                        <div className="col-5">
+                        <h4><Link to ='/' style={{textDecoration: 'none'}}>Home</Link> 
+                        <Link to ='/producerprofile' style={{textDecoration: 'none'}}>&gt;Producers</Link>
+                        <Link to ='/Producerfield' style={{textDecoration: 'none'}}>&gt;Fields</Link>&gt;Id</h4>
                         </div>
-                        <div className="row">
-                            <div className="col-2">
-                                <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Field"/>
-                                </div>
-                            </div>
-                            <div className="col-1">
-                                <input className="text-white form-control bg-primary" type="number" min="1900" max="2099" step="1"/>
-                            </div>
-                            <div className="col-1 gx-0">
-                            <CalendarTodayIcon/>
-                            </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-4">
+                            <table class="table table-striped table-bordered tdp" style={{"margin-bottom": "0px"}}>
+                                <thead>
+                                    <tr>
+                                    <th className="table-secondary" scope="col" ><button style={{textDecoration: 'none',border:'0px',background:'none'}} value="2017" onClick={changeYear}>2017</button></th>
+                                    <th className="table-secondary" scope="col" ><button style={{textDecoration: 'none',border:'0px',background:'none'}} value="2018" onClick={changeYear}>2018</button></th>
+                                    <th className="table-secondary" scope="col" ><button style={{textDecoration: 'none',border:'0px',background:'none'}} value="2019" onClick={changeYear}>2019</button></th>
+                                    <th className="table-secondary" scope="col" ><button style={{textDecoration: 'none',border:'0px',background:'none'}} value="2020" onClick={changeYear}>2020</button></th>
+                                    <th className="table-secondary" scope="col" ><button style={{textDecoration: 'none',border:'0px',background:'none'}} value="2021" onClick={changeYear}>2021</button></th>
+                                    <th scope="col"><button onClick={getFieldRecordMgmtZone} style={{textDecoration: 'none',border:'0px',background:'none'}}>Mgmt Zones</button></th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
-
-
-                        <div className="row pt-5">
-                            <div className="col-2">
-                            <div className="form-group">
-                                <select className="custom-select form-control" id="inputGroupSelect01">
-                                    <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                </div>
-                            </div>
-                            <div className="col-2">
-                            <div className="form-group">
-                                <select className="custom-select form-control" id="inputGroupSelect01">
-                                    <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                </div>
-                            </div>
-                            <div className="col-2">
-                            <div className="form-group">
-                                <select className="custom-select form-control" id="inputGroupSelect01">
-                                    <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                </div>
-                            </div>
-                            <div className="col-2">
-                                <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"/>
-                                    <label className="form-check-label" for="exampleRadios1">
-                                        Cover Crop
-                                    </label>
-                                </div>
-                            </div>
+                    </div>
+                    <div className="row tdd">
+                        <div className="col-12">
+                            <table className="table table-striped table-bordered tdd">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" className="table-warning">Field ID</th>
+                                        <th scope="col" className="table-warning">Field Name</th>
+                                        <th scope="col" className="table-warning">Alt Name</th>
+                                        <th scope="col" className="table-warning">P Fert.Methods</th>
+                                        <th scope="col" className="table-warning">N Fert.Methods</th>
+                                        <th scope="col" className="table-warning">Default Tillage 1</th>
+                                        <th scope="col" className="table-warning">Default Tillage 2</th>
+                                        <th scope="col" className="table-warning">Cover Crop Season </th>
+                                        <th scope="col" className="table-warning">Cover Crop Type</th>
+                                        <th scope="col" className="table-warning">MGMT ZONE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        FieldRecordMgmtZone.map((currentZone)=>{
+                                            return(
+                                    <tr>
+                                      <td className="table-info">{currentZone.id}</td>
+                                      <td className="table-info">{currentZone.plantedCrop}</td>
+                                      <td className="table-info">currentZone</td>
+                                      <td className="table-info">{currentZone.PhosphorousFert}</td>
+                                      <td className="table-info">{currentZone.NitrogenFert}</td>
+                                      <td className="table-info">{currentZone.Tillage1}</td>
+                                      <td className="table-info">{currentZone.Tillage2}</td>
+                                      <td className="table-info">{currentZone.Season}</td>
+                                      <td className="table-info">{currentZone.Grasses}</td>
+                                      <td className="table-info">currentZone</td>
+                                    </tr>
+                                            )})
+                              } 
+                                </tbody>
+                            </table>
                         </div>
-
-                        <div className="row" style={{marginTop:"15%"}}>
-                            <div className="col-6">
-                            <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"/>
-                                    <label className="form-check-label" for="exampleRadios1">
-                                        Interested in Structural Practice?
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="col-3">
-                            <div className="form-group" >
-                                <select className="custom-select form-control" id="inputGroupSelect02"  style={{width:'80%'}}>
-                                    <option selected>Reason for structural Practice</option>
-                                    <option value="1">Reduce Soil Movement</option>
-                                    <option value="2">Trap Moving Soil</option>
-                                    <option value="4">Reduce Run off</option>
-                                    <option value="5">Convey Water Downstream</option>
-                                    <option value="6">Improve Drainage</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="row" style={{marginTop:"10%"}}>
-                            <div className="col-5">
-
-                            </div>
-                            <div className="col-2 mb-2">
-                            <button className="btn btn-primary">Submit</button>
-                            </div>
-                            <div className="col-5">
-
-                            </div>
-
+                    </div>
+                    <div className="row">
+                        <div className="col-2">
+                        <button className="btn btn-primary" onClick={()=>{window.location='/mangement'}}>Add Mangement Zone</button>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
+    
+            
         </>
     )
 }

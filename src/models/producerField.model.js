@@ -5,10 +5,12 @@ const producerField = dbdata.define('producerField',{
         type:sequelize.STRING
     },
     Size :{
-        type : sequelize.INTEGER
+        type : sequelize.INTEGER,
+        defaultValue: null
     },
     CultivatedArea :{
-        type : sequelize.INTEGER
+        type : sequelize.INTEGER,
+        defaultValue: null
     },
     SoilTestResult :{ 
         type : sequelize.BOOLEAN,
@@ -23,10 +25,12 @@ const producerField = dbdata.define('producerField',{
         defaultValue: false
     },
     FarmingDirection :{
-        type:sequelize.STRING
+        type:sequelize.STRING,
+        defaultValue: null
     },
     YearFarmed:{
-        type:sequelize.INTEGER
+        type:sequelize.INTEGER,
+        defaultValue: null
     },
     ExistConePractice :{
         type : sequelize.BOOLEAN,
@@ -35,7 +39,24 @@ const producerField = dbdata.define('producerField',{
     EQIPorCPS:{
         type : sequelize.BOOLEAN,
         defaultValue: false
+    },
+    OperationalChallenged:{
+        type : sequelize.BOOLEAN,
+        defaultValue: false
+    },
+    SketchMap:{
+        type : sequelize.BOOLEAN,
+        defaultValue: false
+    },
+    ZoneMap:{
+        type : sequelize.BOOLEAN,
+        defaultValue: false
+    },
+    YeildMap:{
+        type : sequelize.BOOLEAN,
+        defaultValue: false
     }
+
 })
 producerField.sync().then(() => {
   });

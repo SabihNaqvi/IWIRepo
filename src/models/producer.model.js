@@ -1,6 +1,7 @@
 const dbData = require('../CONFIG/db.config')
 const sequelize = require('sequelize');
 const advisor = require('./advisor.model');
+const Signup = require('./signup.model');
 const producer = dbData.define('producers',{
     id: {
         type: sequelize.INTEGER,
@@ -61,10 +62,15 @@ const producer = dbData.define('producers',{
     },
     AdvisorId : {
         type: sequelize.INTEGER,
-        // references: 'advisors', // or "conversations"? This is a table name
-        //     referencesKey: 'id'
         references: {
             model: advisor,
+            key: 'id'
+        }
+    },
+    SignUpId : {
+        type: sequelize.INTEGER,
+        references: {
+            model: Signup,
             key: 'id'
         }
     }

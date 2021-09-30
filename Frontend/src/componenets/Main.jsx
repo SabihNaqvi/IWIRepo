@@ -20,7 +20,7 @@ const Main = () => {
 
 
 <nav className="navbar navbar-expand-xl navbar-dark bg-dark">
-  <Link to="#" className="navbar-brand"><i className="fa fa-cube" /><b>IWI</b></Link>
+  <Link to="/" className="navbar-brand"><i className="fa fa-cube" /><b>IWI</b></Link>
   <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
     <span className="navbar-toggler-icon" />
   </button>
@@ -28,9 +28,13 @@ const Main = () => {
   <div id="navbarCollapse" className="collapse navbar-collapse justify-content-start">
     <div className="navbar-nav">
       <Link to="/" className="nav-item nav-link active">Home</Link>
-      <Link className="nav-link" to ="/advisor" >Advisor</Link>
-      <Link className="nav-link" to ="/producerprofile" >Producer</Link>
+      <Link className="nav-link" to ="/mangement" >Management Zone</Link>
+      <Link className="nav-link" to ="/advisor" >Advisor Profile</Link>
+      <Link className="nav-link" to ="/producerprofile" >Producer Profile</Link>
       <Link className="nav-link" to ="/fieldrecordmgmtzone" >Field record</Link>
+      <Link className="nav-link" to ="/advisortable" >Advisor Table</Link>
+      <Link className="nav-link" to ="/producers" >Producer Table</Link>
+      <Link className="nav-link" to ="/newmanagmentzone" >ManagementZone Record</Link>
       <Link to="/Producerfield" className="nav-item nav-link" >Producer Field</Link>
     </div>
     <div className="navbar-nav ml-auto">
