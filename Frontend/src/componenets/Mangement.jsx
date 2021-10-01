@@ -19,11 +19,15 @@ const[StructuralPractice,setStructuralPractice] = useState(false)
 async function submitReview() {
     await axios.post(`${url}/manageZone`,{Fieldpicker:Fieldpicker,productionYear:productionYear,plantedCrop:plantedCrop,Tillage1:Tillage1,Tillage2:Tillage2,Season:Season,Grasses:Grasses,PhosphorousFert:PhosphorousFert,NitrogenFert:NitrogenFert,CoverCrop:CoverCrop,StructuralPractice:StructuralPractice,StructuralReason:StructuralReason
   }).then((response) => {
-      console.log(`RESPONE HERE ${response}`)
+      if(response.status === 200){
+        alert("Data Saved Suuceessfully!!")
+        window.location = '/fieldrecordmgmtzone'
+      }
     }).catch((err)=>{
-        console.log(`ERROR BECAUSE OF ${err}`)
+        if(err.response.status === 422 ){
+            alert("Please enter credentials properly")
+           }
         }
-
     )
 }
 // const[Signups,setSignups] = useState(false)
