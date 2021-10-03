@@ -1,7 +1,7 @@
 require("../CONFIG/db.config");
 const sequelize = require("sequelize");
 const producerModel = require("../models/producer.model");
-
+const User = require('../models/signup.model')
 exports.getAllProducerList = async (req, res) => {
   try {
     const producersData = await producerModel.findAll();
@@ -29,32 +29,27 @@ exports.postAllProducers = async (req, res) => {
     !State ||
     !Country
   ) {
-    res.status(400).json({ error: "Please Enter Your Credential Properly" });
+    res.status(409).json({ error: "Please Enter Your Credential Properly" });
   }
   try {
-    const userExists = await producerModel.findOne({ where: { Email } });
-    if (userExists) {
-      return res.status(422).json({ error: "Email Already Exists" });
+    
+    const userExists = await User.findOne({ where: { Email } });
+    const producerExists = await producerModel.findOne({ where: { Email } });
+   
+    if (!userExists) {
+      return res.status(422).json({ error: "No User Exists Against this Email" });
     }
+    else if(producerExists){
+      return res.status(400).json({ error: "User Already Registered as Producer" });
+    }
+    else{
     const userproducerModel = producerModel.create({
-      FirstName,
-      MiddleInitial,
-      LastName,
-      Address1,
-      Address2,
-      Email,
-      HomePhone,
-      CellPhone,
-      City,
-      State,
-      Country,
-      NDA,
-      Twitter,
-      Facebook,
+      FirstName,MiddleInitial,LastName,Address1,Address2,Email,
+      HomePhone,CellPhone,City,State,Country,NDA,Twitter,Facebook,
     });
     await userproducerModel.save();
     res.status(201).json({ message: "User Registered Successfully" });
-  } catch (error) {
+  }} catch (error) {
     res.send(error);
   }
 };

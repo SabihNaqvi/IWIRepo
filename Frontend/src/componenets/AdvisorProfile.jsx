@@ -23,11 +23,14 @@ const AdvisorProfile = () => {
       }
    }).catch((err)=>{
     if(err.response.status === 422 ){
-     alert("Email Already Exist")
+     alert("No User Exists Against this Email")
     }
     else if(err.response.status === 400 ) {
-     alert("Please Enter Your Credential Properly")
+     alert("User Already Registered as Advisor")
     }
+    else if(err.response.status === 409 ){
+      alert("Please Enter Your Credential Properly")
+     }
   })
   }
   const token = localStorage.getItem("token");

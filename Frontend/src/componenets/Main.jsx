@@ -28,14 +28,14 @@ const Main = () => {
   <div id="navbarCollapse" className="collapse navbar-collapse justify-content-start">
     <div className="navbar-nav">
       <Link to="/" className="nav-item nav-link active">Home</Link>
-      <Link className="nav-link" to ="/mangement" >Management Zone</Link>
-      <Link className="nav-link" to ="/advisor" >Advisor Profile</Link>
-      <Link className="nav-link" to ="/producerprofile" >Producer Profile</Link>
-      <Link className="nav-link" to ="/fieldrecordmgmtzone" >Field record</Link>
-      <Link className="nav-link" to ="/advisortable" >Advisor Table</Link>
-      <Link className="nav-link" to ="/producers" >Producer Table</Link>
-      <Link className="nav-link" to ="/newmanagmentzone" >ManagementZone Record</Link>
-      <Link to="/Producerfield" className="nav-item nav-link" >Producer Field</Link>
+      <Link className="nav-link" to ="/mangement" >ManagementZone</Link>
+      <Link className="nav-link" to ="/advisor" >AdvisorProfile</Link>
+      <Link className="nav-link" to ="/producerprofile" >ProducerProfile</Link>
+      <Link className="nav-link" to ="/fieldrecordmgmtzone" >FieldRecord</Link>
+      <Link className="nav-link" to ="/advisortable" >AdvisorTable</Link>
+      <Link className="nav-link" to ="/producers" >ProducerTable</Link>
+      <Link className="nav-link" to ="/newmanagmentzone" >ManagementZoneRecord</Link>
+      <Link to="/Producerfield" className="nav-item nav-link" >ProducerField</Link>
     </div>
     <div className="navbar-nav ml-auto">
     <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={submitReview}>Logout</button>

@@ -8,9 +8,6 @@ exports.postAllLoginsList = async(req,res)=>{
             res.status(400).json({error:"Invalid Credential"})
         }
         const userLogin = await Login.findOne({where:{Email}});
-        // res.status(200).send(userLogin)
-        
-        // const token = await userLogin.generateAuthToken();
 
         const isMatch = await bcrypt.compare(Password,userLogin.Password)
         if (!isMatch){
@@ -20,7 +17,6 @@ exports.postAllLoginsList = async(req,res)=>{
             const payload = {
                 user: { id: userLogin.id }
               };
-              console.log(payload,"loginnnnn")
               jwt.sign(payload, "randomString", (err, token) => {
                 if (err) throw err;
                 res.status(200).json({ token });
